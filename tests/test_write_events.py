@@ -17,5 +17,4 @@ def test_write_event(accounts, storage1):
     logging.info(tx.events['MeasureRecord'])    
     assert len(tx.events) == 1
 
-def test_read_web3(accounts, storage1):
     
