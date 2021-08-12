@@ -5,12 +5,17 @@ pragma solidity ^0.8.6;
 
 contract EventStorage {
 
-    string public version;
-
+    
     struct Insulin {
         string insulinType;
         uint256 duration;
     }
+
+    string public version;
+    string[3] public INSULINS = ['ins1', 'ins2', 'ins3'];
+
+    mapping(address => string[]) internal personalInsulins;
+
 
     event MeasureRecord (
         address indexed sender,
@@ -47,6 +52,45 @@ contract EventStorage {
             _units,
             _insulinType
         );
+
+    }
+
+    function addPersonalInsulin(string memory _insulin) external {
+        string[] storage ins = personalInsulins[msg.sender];
+        ins.push(_insulin);
+    }
+
+    function removePersonalInsulinItem(uint256 _id) external {
+        string[] memory insOld = personalInsulins[msg.sender];
+        //We need recreate all array due https://docs.soliditylang.org/en/v0.8.6/types.html#delete
+        delete personalInsulins[msg.sender];
+        for (uint256 i = 0; i < insOld.length; i++) {
+            if (i != _id) {
+               personalInsulins[msg.sender].push(insOld[i]); 
+            }
+        }
+    }
+
+    function getInsulins() public view returns (string[3] memory insulins) {
+        return INSULINS;
+    }
+
+    function getPersonalInsulins(address user) public view returns(string[] memory persIns) {
+        return personalInsulins[user];
+    }
+
+    function getAllInsulins() external view returns (string[] memory allIns) {
+        uint256 allArraysLength = INSULINS.length + personalInsulins[msg.sender].length;
+        //Due https://docs.soliditylang.org/en/v0.8.6/types.html#allocating-memory-arrays
+        string[] memory result  = new string[](allArraysLength);
+        for (uint256 i = 0; i < INSULINS.length; i++) {
+            result[i] = INSULINS[i];
+        }
+        //add spersonal array
+        for (uint256 i = 0; i < personalInsulins[msg.sender].length; i++) {
+            result[i + INSULINS.length] = personalInsulins[msg.sender][i];
+        }
+        return result;
 
     }
 }

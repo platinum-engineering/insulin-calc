@@ -22,3 +22,21 @@ def test_write_event(accounts, storage1):
     assert tx.events['MeasureRecord']['insulinType'] == MEASURE_RECORD[3]
 
     
+def test_get_insulins(accounts, storage1):
+    logging.info(storage1.getInsulins())
+    assert len(storage1.getInsulins()) == 3
+
+def test_save_personal_insulin(accounts, storage1):
+    storage1.addPersonalInsulin('personal_insulin 1', {'from': accounts[0]})
+    storage1.addPersonalInsulin('personal_insulin 2', {'from': accounts[0]})
+    storage1.addPersonalInsulin('personal_insulin 3', {'from': accounts[0]})
+    assert len(storage1.getPersonalInsulins(accounts[0]))==3
+
+def test_get_all_insulin(accounts, storage1):
+    logging.info(storage1.getAllInsulins())
+    assert len(storage1.getAllInsulins())==6
+
+def test_remove_personal_insulin(accounts, storage1):
+    storage1.removePersonalInsulinItem(1, {'from': accounts[0]})
+    assert len(storage1.getPersonalInsulins(accounts[0]))==2
+    logging.info(storage1.getAllInsulins())     
