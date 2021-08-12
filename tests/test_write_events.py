@@ -37,6 +37,6 @@ def test_get_all_insulin(accounts, storage1):
     assert len(storage1.getAllInsulins())==6
 
 def test_remove_personal_insulin(accounts, storage1):
-    storage1.removePersonalInsulinItem(1, {'from': accounts[0]})
+    storage1.removePersonalInsulin(1, {'from': accounts[0]})
     assert len(storage1.getPersonalInsulins(accounts[0]))==2
     logging.info(storage1.getAllInsulins())     

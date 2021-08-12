@@ -60,7 +60,7 @@ contract EventStorage {
         ins.push(_insulin);
     }
 
-    function removePersonalInsulinItem(uint256 _id) external {
+    function removePersonalInsulin(uint256 _id) external {
         string[] memory insOld = personalInsulins[msg.sender];
         //We need recreate all array due https://docs.soliditylang.org/en/v0.8.6/types.html#delete
         delete personalInsulins[msg.sender];
@@ -79,7 +79,7 @@ contract EventStorage {
         return personalInsulins[user];
     }
 
-    function getAllInsulins() external view returns (string[] memory allIns) {
+    function getAllInsulins() public view returns (string[] memory allIns) {
         uint256 allArraysLength = INSULINS.length + personalInsulins[msg.sender].length;
         //Due https://docs.soliditylang.org/en/v0.8.6/types.html#allocating-memory-arrays
         string[] memory result  = new string[](allArraysLength);
