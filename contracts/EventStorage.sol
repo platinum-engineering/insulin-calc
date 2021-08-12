@@ -15,9 +15,9 @@ contract EventStorage {
     event MeasureRecord (
         address indexed sender,
         uint256 timestamp,          //Unix timestamp
-        uint256 bloodGlucose,       //Current blood glucose reading
-        uint256 carbohydrateIntake, //Estimated carbohydrate intake
-        uint256 unitsOfInsulin,     //Units of insulin the app has calculated for you
+        uint256 glucose,       //Current blood glucose reading
+        uint256 carbs, //Estimated carbohydrate intake
+        uint256 units,     //Units of insulin the app has calculated for you
         Insulin insulinType // lookup table with insulin name (string) and duration in minutes 
     );
 
@@ -25,11 +25,11 @@ contract EventStorage {
         version = _version;
     }
 
-    function writeMeasure (
+    function bolus (
         uint256 _timestamp,          //Unix timestamp
-        uint256 _bloodGlucose,       //Current blood glucose reading
-        uint256 _carbohydrateIntake, //Estimated carbohydrate intake
-        uint256 _unitsOfInsulin,     //Units of insulin the app has calculated for you
+        uint256 _glucose,       //Current blood glucose reading
+        uint256 _carbs, //Estimated carbohydrate intake
+        uint256 _units,     //Units of insulin the app has calculated for you
         Insulin calldata _insulinType // lookup table with insulin name (string) and duration in minutes 
          
     ) 
@@ -42,9 +42,9 @@ contract EventStorage {
         emit MeasureRecord (
             msg.sender,
             _timestamp,
-            _bloodGlucose,
-            _carbohydrateIntake,
-            _unitsOfInsulin,
+            _glucose,
+            _carbs,
+            _units,
             _insulinType
         );
 
