@@ -14,8 +14,8 @@ contract EventStorage {
     string public version;
     Insulin[] public INSULINS; 
     // Insulin[2] public INSULINS = [
-    //     Insulin('Novorapid', 10800 ),
-    //     Insulin('Humuline',  18000 )
+    //     Insulin('Novorapid', 180 ),
+    //     Insulin('Humuline',  300 )
     // ];
 
     mapping(address => Insulin[]) internal personalInsulins;
