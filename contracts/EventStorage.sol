@@ -32,8 +32,8 @@ contract EventStorage {
 
     constructor (string memory _version) {
         version = _version;
-        INSULINS.push(Insulin('Novorapid', 10800 ));
-        INSULINS.push(Insulin('Humuline',  18000 ));
+        INSULINS.push(Insulin('Novorapid', 180 ));
+        INSULINS.push(Insulin('Humuline',  300 ));
     }
 
     function bolus (
